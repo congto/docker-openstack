@@ -1,5 +1,5 @@
 FROM centos:7
-MAINTAINER Hai Shi "shihai1992@gmail.com"
+MAINTAINER Cong TO "tcvn1985@gmail.com"
 
 # The version of openstack
 # Keystone 9.3.0 is belong to mitaka
@@ -10,11 +10,13 @@ ENV VERSION=9.3.0
 #ENV http_proxy="Pls input your proxy"
 #ENV https_proxy="Pls input your proxy"
 
-# Config yum repo
+# Config yum repo, fix repo centos 7 
 RUN set -x \
     && rm -rf /etc/yum.repos.d/*.repo \
-    && curl http://mirrors.163.com/.help/CentOS7-Base-163.repo -o /etc/yum.repos.d/CentOS7-Base-163.repo \
+    && curl  https://raw.githubusercontent.com/cloudrouter/centos-repo/refs/heads/master/CentOS-Vault.repo -o /etc/yum.repos.d/CentOS7-Base-163.repo \
+    &&  sed -i -e "s/enabled=0/enabled=1/g" /etc/yum.repos.d/CentOS7-Base-163.repo \
     && yum makecache
+
 
 RUN set -x \
     && yum install -y libffi-devel python-devel openssl-dev mariadb MySQL-python vim-enhanced gcc
