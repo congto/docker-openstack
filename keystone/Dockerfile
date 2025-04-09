@@ -1,4 +1,4 @@
-FROM centos:7
+FROM centos:7.9.2009
 MAINTAINER Cong TO "tcvn1985@gmail.com"
 
 # The version of openstack
@@ -15,8 +15,8 @@ RUN set -x \
     && rm -rf /etc/yum.repos.d/*.repo \
     && curl  https://raw.githubusercontent.com/cloudrouter/centos-repo/refs/heads/master/CentOS-Vault.repo -o /etc/yum.repos.d/CentOS7-Base-163.repo \
     &&  sed -i -e "s/enabled=0/enabled=1/g" /etc/yum.repos.d/CentOS7-Base-163.repo \
+    &&  sed -i -e "s/7.0.1406/7.9.2009/g" /etc/yum.repos.d/CentOS7-Base-163.repo \
     && yum makecache
-
 
 RUN set -x \
     && yum install -y libffi-devel python-devel openssl-dev mariadb MySQL-python vim-enhanced gcc
